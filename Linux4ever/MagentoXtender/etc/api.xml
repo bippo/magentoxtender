@@ -1,0 +1,220 @@
+<config>
+    <api>
+        <resources>
+        	<core_store translate="title" module="core">
+        		<title>Website, Store and Storeview enumeration</title>
+				<model>magentoxtender/store_api</model>
+				<acl>core/store</acl>
+				<methods>
+					<websites translate="title" module="core">
+						<title>Enumerate websites</title>
+					</websites>
+                    <stores translate="title" module="core">
+						<title>Enumerate stores</title>
+					</stores>
+					<groups translate="title" module="core">
+						<title>Enumerate groups</title>
+					</groups>
+					<tree translate="title" module="core">
+						<title>Enumerate websites, groups and stores</title>
+					</tree>
+                </methods>
+                <faults module="core">
+					<store_not_exists>
+                        <code>100</code>
+                        <message>Requested store view not found.</message>
+                    </store_not_exists>
+                    <website_not_exists>
+                        <code>101</code>
+                        <message>Requested website not found.</message>
+                    </website_not_exists>
+                    <group_not_exists>
+                        <code>102</code>
+                        <message>Requested group not found.</message>
+                    </group_not_exists>
+				</faults>
+			</core_store>
+			<catalog_product>
+                <model>magentoxtender/product_api</model>
+            </catalog_product>    
+        	<catalog_product_link>
+                <model>magentoxtender/product_link_api</model>
+                <methods>
+                    <listSuperAttributes translate="title" module="catalog">
+						<title>Get configurable attribute values for a configurable product</title>
+					</listSuperAttributes>
+					<createSuperAttribute translate="title" module="catalog">
+						<title>Create configurable attribute for a configurable product</title>
+					</createSuperAttribute>
+					<removeSuperAttribute translate="title" module="catalog">
+						<title>Remove super attribute</title>
+					</removeSuperAttribute>
+					<setSuperAttributeValues translate="title" module="catalog">
+						<title>Set configurable attribute values for super attribute</title>
+					</setSuperAttributeValues>
+					
+					
+				</methods>
+            </catalog_product_link>
+            <catalog_product_attribute>
+                <model>magentoxtender/product_attribute_api</model>
+                <methods>
+                    <create translate="title" module="catalog">
+						<title>Create new product attribute</title>
+					</create>
+					<update translate="title" module="catalog">
+						<title>Update product attribute</title>
+					</update>
+					<delete translate="title" module="catalog">
+						<title>Delete product attribute</title>
+					</delete>
+					<form translate="title" module="catalog">
+						<title>Form fields for new attribute</title>
+					</form>
+					<addToGroup translate="title" module="catalog">
+						<title>Add attribute to an attribute set/group</title>
+					</addToGroup>
+					<deleteFromGroup translate="title" module="catalog">
+						<title>Remove attribute from an attribute set/group</title>
+					</deleteFromGroup>
+                </methods>
+                <faults module="core">
+                    <attribute_code_allready_exists>
+                        <code>102</code>
+                        <message>There already exists an attribute with the given attribute-code.</message>
+                    </attribute_code_allready_exists>
+				</faults>
+            </catalog_product_attribute>
+            <eav_entity_attribute_option>
+                <title>EAV Entity Attribute Option Functions</title>
+				<model>magentoxtender/entity_attribute_option_api</model>
+				<acl>eav/entity</acl>
+                <methods>
+	                <list translate="title" module="eav">
+						<title>List Attribute Option Values for a certain attribute</title>
+						<method>items</method>
+					</list>
+                    <create translate="title" module="eav">
+						<title>Create new entity attribute option</title>
+					</create>
+					<update translate="title" module="eav">
+						<title>Update product attribute option</title>
+					</update>
+					<delete translate="title" module="eav">
+						<title>Delete an Attribute Option</title>
+					</delete>
+                </methods>
+                <faults module="core">
+                    <entity_not_exists>
+                        <code>100</code>
+                        <message>Requested entity not found.</message>
+                    </entity_not_exists>
+                    <entity_attribute_not_exists>
+                        <code>101</code>
+                        <message>Requested entity attribute not found.</message>
+                    </entity_attribute_not_exists>
+					<entity_attribute_option_not_exists>
+                        <code>102</code>
+                        <message>Requested entity attribute option not found.</message>
+                    </entity_attribute_option_not_exists>
+                    <invalid_sort_order>
+                        <code>103</code>
+                        <message>You provided an invalid sortorder. sort_order must be an integer.</message>
+                    </invalid_sort_order>
+                    <no_labels_provided>
+                        <code>104</code>
+                        <message>You didn't provide any labels for the new attribute option.</message>
+                    </no_labels_provided>
+                    <adminstore_label_required>
+                        <code>105</code>
+                        <message>The label for the adminstore is required (storeid = 0).</message>
+                    </adminstore_label_required>
+                    
+				</faults>
+            </eav_entity_attribute_option>
+            <catalog_product_attribute_media>
+                <model>magentoxtender/product_attribute_media_api</model>
+            </catalog_product_attribute_media>
+            <catalog_product_attribute_option>
+            	<title>Product Attrubute Option Functions</title>
+				<model>magentoxtender/product_attribute_option_api</model>
+				<acl>catalog/product</acl>
+                <methods>
+	                <list translate="title" module="catalog">
+						<title>List Attribute Option Values for a certain attribute</title>
+						<method>items</method>
+					</list>
+                    <create translate="title" module="catalog">
+						<title>Create new product attribute option</title>
+					</create>
+					<update translate="title" module="catalog">
+						<title>Update product attribute option</title>
+					</update>
+					<delete translate="title" module="catalog">
+						<title>Delete an Attribute Option</title>
+					</delete>
+					<deleteValue translate="title" module="catalog">
+						<title>Delete an Attribute Option Value</title>
+					</deleteValue>
+					<test translate="title" module="catalog">
+						<title>Delete an Attribute Option Value</title>
+					</test>
+                </methods>
+            </catalog_product_attribute_option>
+            <catalog_product_attribute_set>
+				<model>magentoxtender/product_attribute_set_api</model>
+				<methods>
+					<list translate="title" module="catalog">
+						<title>List Attribute Sets</title>
+						<method>items</method>
+					</list>
+					<create translate="title" module="catalog">
+						<title>Create a new Attribute Set</title>
+					</create>
+					<update translate="title" module="catalog">
+						<title>Update an Attribute Set</title>
+					</update>
+					<delete translate="title" module="catalog">
+						<title>Delete an Attribute Set</title>
+					</delete>
+                </methods>
+                <faults module="core">
+                    <set_not_exists>
+                        <code>100</code>
+                        <message>The requested set doesn't exists.</message>
+                    </set_not_exists>
+				</faults>
+			</catalog_product_attribute_set>
+			<catalog_product_attribute_group translate="title" module="catalog">
+				<title>Attribute Group Functions</title>
+				<model>magentoxtender/product_attribute_group_api</model>
+				<acl>catalog/product</acl>
+				<methods>
+					<list translate="title" module="catalog">
+						<title>List Attribute Groups (in a certain Attribute Set)</title>
+						<method>items</method>
+					</list>
+					<create translate="title" module="catalog">
+						<title>Create a new Attribute Group</title>
+					</create>
+					<update translate="title" module="catalog">
+						<title>Update an Attribute Group</title>
+					</update>
+					<delete translate="title" module="catalog">
+						<title>Delete an Attribute Group</title>
+					</delete>
+                </methods>
+                <faults module="core">
+                    <group_already_exists>
+                        <code>100</code>
+                        <message>GroupName already exists.</message>
+                    </group_already_exists>
+                    <group_not_exists>
+                        <code>101</code>
+                        <message>Requested Group doesn't exists.</message>
+                    </group_not_exists>
+				</faults>
+			</catalog_product_attribute_group>
+        </resources>
+    </api>
+</config>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>magentoxtender</name>
+ <channel>connect.magentocommerce.com/community</channel>
+ <summary>Extra API functionality for webservice</summary>
+ <description>THIS MODULE IS IN EARLY DEVELOPMENT - USE AT YOUR OWN RISK!
+
+This module makes extra API functions available for SOAP and XML-RPC webservice. It should be used in combination with the VB.NET Library I am currently developping. The VB.NET program also contains a wizard to import multiple products at once. 
+Most important functionality is probably the possibility to link simple products to a configurable product.
+Please note that this module will only install the extra API functions on your magento installation. You still need to download the VB.NET program at the following website:
+
+http://www.linux4ever.be/dokuwiki/doku.php?id=magentoxtender
+
+Important: If the new API functions are not available after you&apos;ve installed the module than you most certainly have to disable or refresh the Cache in the admin-pages:  System &gt; Cache Management
+
+If you have problems with certain attributes not showing any options (like color or manufacturer) , then make sure you execute the following query : 
+
+UPDATE eav_attribute SET `source_model` = &apos;eav/entity_attribute_source_table&apos; WHERE attribute_code IN (&apos;manufacturer&apos;,&apos;color&apos;)
+
+Current features: 
+* List/Create/Update/Delete Attribute Set
+* List/Create/Update/Delete Attribute Group
+* List/Create/Update/Delete (Product) Attributes + EAV Options/Values + assignToGroup, deleteFromGroup
+* List/Create/Update/Delete Product (Simple/Configurable/Virtual/Grouped/Bundled) 
+* List/Update Inventory Product Stock
+* List Websites, StoreGroups &amp; Stores
+* List/Create/Update/Delete Product Links for Grouped+Configurable products
+* List/Create/Update/Delete/Assign Products/… for Product Categories
+* List Product Categorie Attributes+Options
+* List Product Types
+* List/Create/Update/Delete (+ Upload) Product Images
+Todo: 
+* Create Wizard to easily import multiple products at once [Current Version works! High Priority]
+* Implement API functions for: [Low Priority]
+* Customers API
+* Customer&apos;s Groups API
+* Customer Address API
+* Country API
+* Region API
+* Product Tier Price API
+* Order API
+* Shipment API
+* Invoice API</description>
+ <lead>
+  <name>Dieter Moeyersons</name>
+  <user>dieter</user>
+  <email>dieter.m@telenet.be</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-10-29</date>
+ <time>19:03:03</time>
+ <version>
+  <release>1.0.2</release>
+  <api>1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+ <notes>1.0.1
+-------
+#no attribute options when multicall
+-------------------------------------------------
+* Problem: When using the API funtion &quot;eav_attribute_option.list&quot; only one attribute loads the options, all options from other attributes are missing.
+* Cause: In Linux4ever_MagentoXtender_Model_Entity_Attribute_Option_Api in function_getStoreOptionValues
+static $storeValues = array(); caused problems when using multiCall
+* Solution: Removed word &apos;static&apos;
+
+#more verbose error messages in some functions</notes>
+ <contents>
+  <dir name="/">
+   <dir name="Linux4ever">
+    <dir name="MagentoXtender\etc">
+     <file md5sum="07adee8f3c2a98c4702ba64174f57330" name="api.xml" role="magecommunity" />
+     <file md5sum="e4f88eb276a7b32e210e947000e8a545" name="config.xml" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\etc -->
+    <dir name="MagentoXtender\Helper">
+     <file md5sum="3b3b7837a6a5fc593497f54223747281" name="Data.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Helper -->
+    <dir name="MagentoXtender\Model\Entity\Attribute">
+     <file md5sum="88ea58cd957cc6af3287984d37e331dd" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Entity\Attribute -->
+    <dir name="MagentoXtender\Model\Entity\Attribute\Option">
+     <file md5sum="4c8ae58f92fc29579b7bd9e43897e1aa" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Entity\Attribute\Option -->
+    <dir name="MagentoXtender\Model\Product">
+     <file md5sum="1d22cf91e08403074143885046843f3e" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product -->
+    <dir name="MagentoXtender\Model\Product\Attribute">
+     <file md5sum="f996efded11abd6f6e2327a77fdcd099" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product\Attribute -->
+    <dir name="MagentoXtender\Model\Product\Attribute\Group">
+     <file md5sum="113f311a8dff8f0cb277814857a48e06" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product\Attribute\Group -->
+    <dir name="MagentoXtender\Model\Product\Attribute\Media">
+     <file md5sum="d03ef3c327d0a0015125c0be5f98b0e6" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product\Attribute\Media -->
+    <dir name="MagentoXtender\Model\Product\Attribute\Option">
+     <file md5sum="366f1b24aa5a9de28830e0fc9d79bfaa" name="not_used_Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product\Attribute\Option -->
+    <dir name="MagentoXtender\Model\Product\Attribute\Set">
+     <file md5sum="238a39c2118a34cafb6aec3fc9c32c56" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product\Attribute\Set -->
+    <dir name="MagentoXtender\Model\Product\Link">
+     <file md5sum="de8a32439c4ddadbc2bf52e018a85a43" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Product\Link -->
+    <dir name="MagentoXtender\Model\Store">
+     <file md5sum="a69c21d2cc9ed58a786e04f5f9c4901e" name="Api.php" role="magecommunity" />
+    </dir> <!-- /Linux4ever/MagentoXtender\Model\Store -->
+   </dir> <!-- /Linux4ever -->
+   <dir name="modules">
+    <file md5sum="60325b832bd3e6ed200d201b208354c2" name="Linux4ever_MagentoXtender.xml" role="mageetc" />
+   </dir> <!-- /modules -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
+   </php>
+   <pearinstaller>
+    <min>1.6.2</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+</package>
