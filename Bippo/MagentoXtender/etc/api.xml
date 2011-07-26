@@ -1,6 +1,25 @@
 <config>
     <api>
         <resources>
+        	<core_config translate="title" module="core">
+        		<title>Configuration data manipulation</title>
+				<model>magentoxtender/config_api</model>
+				<acl>admin/system/config</acl>
+				<methods>
+					<get translate="title" module="core">
+						<title>Get configuration data</title>
+					</get>
+                    <save translate="title" module="core">
+						<title>Set configuration data</title>
+					</save>
+                </methods>
+                <faults module="core">
+					<general_error>
+                        <code>100</code>
+                        <message>General error.</message>
+                    </general_error>
+				</faults>
+			</core_config>
         	<core_store translate="title" module="core">
         		<title>Website, Store and Storeview enumeration</title>
 				<model>magentoxtender/store_api</model>
