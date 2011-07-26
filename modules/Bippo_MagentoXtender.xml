@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bippo_MagentoXtender>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Api />
+		    <Mage_Catalog />
+            </depends>
+        </Bippo_MagentoXtender>
+    </modules>
+</config>

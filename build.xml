@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="magentoxtender">
+    <property file="extension.properties"/>
+    <property file="deploy.properties"/>
+    <property file="development.properties"/>
+	
+	<fail unless="extension.name"/>
+	<fail unless="extension.dirname"/>
+	<fail unless="extension.module.company"/>
+	<fail unless="extension.module.name"/>
+
+	<target name="remote.flush" description="Flush Magento cache storage on server.">
+		<fail unless="server.host"/>
+		<fail unless="server.port"/>
+		<fail unless="server.user"/>
+		<fail unless="server.dir"/>
+		<exec executable="ssh">
+			<arg value="-p"/>
+			<arg value="${server.port}"/>
+			<arg value="${server.user}@${server.host}"/>
+			<arg value="rm -rvf ${server.dir}/var/cache/*" />
+		</exec>
+	</target>
+
+	<target name="remote.compile" description="Recompile Magento includes on server.">
+		<fail unless="server.host"/>
+		<fail unless="server.port"/>
+		<fail unless="server.user"/>
+		<fail unless="server.dir"/>
+		<exec executable="ssh">
+			<arg value="-p"/>
+			<arg value="${server.port}"/>
+			<arg value="${server.user}@${server.host}"/>
+			<arg value="cd ${server.dir} &amp;&amp; php shell/compiler.php compile"/>
+		</exec>
+	</target>
+
+    <target name="deploy"
+		description="Deploy ${extension.name} files to ${server.user}@${server.host}:${server.dir} at port ${server.port}. Then recompile and flush.">
+    	<fail unless="server.user"/>
+    	<fail unless="server.host"/>
+    	<fail unless="server.port"/>
+    	<fail unless="server.dir"/>
+		<exec executable="ssh">
+			<arg value="-p"/>
+			<arg value="${server.port}"/>
+			<arg value="${server.user}@${server.host}"/>
+			<arg value="mkdir -vp ${server.dir}/app/code/community/${extension.module.company}" />
+		</exec>
+		<exec executable="rsync">
+			<arg value="-e"/>
+			<arg value="ssh -p${server.port}"/>
+			<arg value="-vza"/>
+			<arg value="--delete"/>
+			<arg value="${extension.module.company}/${extension.module.name}"/>
+			<arg value="${server.user}@${server.host}:${server.dir}/app/code/community/${extension.module.company}" />
+		</exec>
+		<exec executable="rsync">
+			<arg value="-e"/>
+			<arg value="ssh -p${server.port}"/>
+			<arg value="-vza"/>
+			<arg value="--delete"/>
+			<arg value="modules/${extension.module.company}_${extension.module.name}.xml"/>
+			<arg value="${server.user}@${server.host}:${server.dir}/app/etc/modules" />
+		</exec>
+    	<antcall target="remote.compile" />
+    	<antcall target="remote.flush" />
+    </target>
+	
+	<target name="symlink.create" description="Create symlinks to ${extension.name} theme in ${magento.dir}. It will not overwrite existing files/links.">
+		<fail unless="magento.dir" message="Please set 'magento.dir' property to your Magento installation folder."/>
+		
+		<mkdir dir="${magento.dir}/app/code/community/${extension.module.company}"/>
+		<symlink link="${magento.dir}/app/code/community/${extension.module.company}/" resource="${basedir}/${extension.module.company}/${extension.module.name}" failonerror="false"/>
+<!--		<symlink link="${magento.dir}/app/design/frontend/base/default/layout/" resource="${basedir}/design/frontend/base/default/layout/${extension.dirname}.xml" failonerror="false"/>
+		<symlink link="${magento.dir}/app/design/frontend/base/default/template/" resource="${basedir}/design/frontend/base/default/template/${extension.dirname}" failonerror="false"/>
+		<symlink link="${magento.dir}/skin/frontend/base/default/css/" resource="${basedir}/skin/frontend/base/default/css/${extension.dirname}.css" failonerror="false"/>
+		<symlink link="${magento.dir}/skin/frontend/base/default/images/" resource="${basedir}/skin/frontend/base/default/images/${extension.dirname}" failonerror="false"/>
+		<symlink link="${magento.dir}/skin/frontend/base/default/js/" resource="${basedir}/skin/frontend/base/default/js/${extension.dirname}" failonerror="false"/> -->
+		<copy file="modules/${extension.module.company}_${extension.module.name}.xml" todir="${magento.dir}/app/etc/modules/" />
+	</target>
+    
+	<target name="symlink.delete" description="Delete symlinks to ${theme.name} theme in ${magento.dir}. It will only delete files or symlinks, not directories.">
+		<fail unless="magento.dir" message="Please set 'magento.dir' property to your Magento installation folder."/>
+
+		<symlink action="delete" link="${magento.dir}/app/code/community/${extension.module.company}/${extension.module.name}" failonerror="false"/>
+		<!--<symlink action="delete" link="${magento.dir}/app/design/frontend/base/default/layout/${extension.dirname}.xml" failonerror="false"/>
+		<symlink action="delete" link="${magento.dir}/app/design/frontend/base/default/template/${extension.dirname}" failonerror="false"/>
+		<symlink action="delete" link="${magento.dir}/skin/frontend/base/default/css/${extension.dirname}.css" failonerror="false"/>
+		<symlink action="delete" link="${magento.dir}/skin/frontend/base/default/images/${extension.dirname}" failonerror="false"/>
+		<symlink action="delete" link="${magento.dir}/skin/frontend/base/default/js/${extension.dirname}" failonerror="false"/>-->
+		<delete file="${magento.dir}/app/etc/modules/${extension.module.company}_${extension.module.name}.xml" />
+	</target>
+	
+</project>
