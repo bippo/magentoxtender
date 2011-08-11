@@ -25,9 +25,13 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Set_Api extends Mage_Catalog_
         return $result;
     }
     
+    /**
+     * Return the EAV Entity Type ID for Product.
+     * Usually this will return 4.
+     */
     private function getProductEntityTypeId()
     {
-        return Mage::getModel('catalog/product')->getResource()->getEntityType();
+        return Mage::getModel('catalog/product')->getResource()->getEntityType()->getId();
     }
     
     /*
@@ -57,6 +61,8 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Set_Api extends Mage_Catalog_
 	*/
 	public function create($basedOnSetID, array $data)
 	{
+		Mage::log(var_export($basedOnSetID, true));
+		Mage::log(var_export($data, true));
 		//try
 		//{
 			// $attrOption = Mage_Eav_Model_Entity_Attribute_Set
@@ -70,7 +76,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Set_Api extends Mage_Catalog_
 			} 
 			catch(Exception $ex)
 			{
-				echo "Fout in Deel 1";	
+				Mage::log("Error when attrSet->setData(): ". $ex->getMessage());
 			}
 			
 			try
@@ -80,7 +86,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Set_Api extends Mage_Catalog_
 			}
 			catch(Exception $ex)
 			{
-				echo "Fout in Deel 2";	
+				Mage::log("Error when initFromSkeleton(): ". $ex->getMessage());	
 			}
 			
 			return (int)$attrSet->getAttributeSetId();
