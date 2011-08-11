@@ -134,7 +134,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
 
         if($newAttribute->getAttributeId())
         {
-            $this->_fault("attribute_code_allready_exists");
+            $this->_fault("attribute_code_already_exists");
         }
 
         $newAttribute->setEntityTypeId($this->getProductEntityTypeId());

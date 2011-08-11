@@ -98,10 +98,10 @@
 					</deleteFromGroup>
                 </methods>
                 <faults module="core">
-                    <attribute_code_allready_exists>
+                    <attribute_code_already_exists>
                         <code>102</code>
                         <message>There already exists an attribute with the given attribute-code.</message>
-                    </attribute_code_allready_exists>
+                    </attribute_code_already_exists>
 				</faults>
             </catalog_product_attribute>
             <eav_entity_attribute_option>
@@ -155,7 +155,7 @@
                 <model>magentoxtender/product_attribute_media_api</model>
             </catalog_product_attribute_media>
             <catalog_product_attribute_option>
-            	<title>Product Attrubute Option Functions</title>
+            	<title>Product Attribute Option Functions</title>
 				<model>magentoxtender/product_attribute_option_api</model>
 				<acl>catalog/product</acl>
                 <methods>
@@ -200,7 +200,7 @@
                 <faults module="core">
                     <set_not_exists>
                         <code>100</code>
-                        <message>The requested set doesn't exists.</message>
+                        <message>The requested set doesn't exist.</message>
                     </set_not_exists>
 				</faults>
 			</catalog_product_attribute_set>
@@ -230,7 +230,7 @@
                     </group_already_exists>
                     <group_not_exists>
                         <code>101</code>
-                        <message>Requested Group doesn't exists.</message>
+                        <message>Requested Group doesn't exist.</message>
                     </group_not_exists>
 				</faults>
 			</catalog_product_attribute_group>
