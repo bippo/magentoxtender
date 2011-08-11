@@ -54,6 +54,17 @@ TODO:
 * Shipment API
 * Invoice API
 
+Change Log
+----------
+
+2.0.0
+
+* Renamed the module to avoid confusion with Linux4ever module
+* Reversioned to 2.0.0
+* Added detailed README illustrating SOAPv1 calls
+* New API for Config get & save
+* Ant script to symlink, deploy, remote flush, remote compile
+
 Login
 -----
 
