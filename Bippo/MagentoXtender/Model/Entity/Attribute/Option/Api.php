@@ -43,7 +43,7 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
             foreach ($this->_getStores() as $store) {
                 $storeValues = $this->_getStoreOptionValues($attributeObject->getId(), $store->getId());
 
-                if(!is_null($storeValues[$option->getId()]))
+                if (isset($storeValues[$option->getId()]))
                 {
                     $value['values'][] = $storeValues[$option->getId()];
                 }

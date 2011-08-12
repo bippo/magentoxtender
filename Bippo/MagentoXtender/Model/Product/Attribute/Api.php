@@ -50,12 +50,12 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
 	
 	public function options($attributeId, $storeID = null)
     {
-    	return Mage::getModel('magentoxtender/eav_attribute_option_api')->items($attributeId);
+    	return Mage::getModel('magentoxtender/entity_attribute_option_api')->items($attributeId);
     }
 
     private function getProductEntityTypeId()
     {
-        return Mage::getModel('catalog/product')->getResource()->getEntityType();
+        return Mage::getModel('catalog/product')->getResource()->getEntityType()->getId();
 		/*static $catalogProductEntityID = 0;
 
         if($catalogProductEntityID==0)
