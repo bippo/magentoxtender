@@ -114,6 +114,7 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
 
         return $result;
     }
+    
     /*
     <param><value><string>8vhkb6gdqoe4v619cihtajqui1</string></value></param>
 	<param><value><string>eav_entity_attribute_option.create</string></value></param>
@@ -140,7 +141,16 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
         </data></array>
     </value></param>
     */
-    public function create($attributeID, $sortOrder, array $optionValues)
+    /**
+     * create(125, 0, array( array('store_id'=>0, 'value' => 'Merah') )); 
+     * Enter description here ...
+     * @param int $attributeID
+     * @param int $sortOrder
+     * @param bool $checked Is this the default option?
+     * @param array $optionValues
+     * @return boolean
+     */
+    public function create($attributeID, $sortOrder, $checked, array $optionValues)
 	{
         // check user input
         // 1. Is $attributeID an integer?
@@ -178,6 +188,9 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
         }
 
         // First check if the given attributeID exists
+        /**
+         * @var Mage_Eav_Model_Entity_Attribute
+         */
         $attribute = Mage::getModel('eav/entity_attribute');
         $attribute->load($attributeID);
 
@@ -191,6 +204,7 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
 
         // to add an option
         $oData['order']["newOption"] = $sortOrder;
+        if ($checked) $oData['default[]'] = 'newOption';
 
         foreach($optionValues as $optionValue)
         {

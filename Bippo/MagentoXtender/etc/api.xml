@@ -154,6 +154,7 @@
             <catalog_product_attribute_media>
                 <model>magentoxtender/product_attribute_media_api</model>
             </catalog_product_attribute_media>
+            <!-- @deprecated Use {@link Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api}.
             <catalog_product_attribute_option>
             	<title>Product Attribute Option Functions</title>
 				<model>magentoxtender/product_attribute_option_api</model>
@@ -180,6 +181,7 @@
 					</test>
                 </methods>
             </catalog_product_attribute_option>
+            -->
             <catalog_product_attribute_set>
 				<model>magentoxtender/product_attribute_set_api</model>
 				<methods>
@@ -234,6 +236,20 @@
                     </group_not_exists>
 				</faults>
 			</catalog_product_attribute_group>
+        	<index_indexer>
+                <model>magentoxtender/indexer_api</model>
+                <methods>
+                    <reindexAll translate="title" module="index">
+						<title>Reindex all indexes</title>
+					</reindexAll>
+				</methods>
+                <faults module="index">
+					<general_error>
+                        <code>100</code>
+                        <message>General error.</message>
+                    </general_error>
+				</faults>
+            </index_indexer>
         </resources>
     </api>
 </config>

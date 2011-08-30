@@ -39,6 +39,7 @@ Current features:
 10. List Product Types
 11. List/Create/Update/Delete (+ Upload) Product Images
 12. Get/Set Configuration Data
+13. Reindex
 
 TODO: 
 

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @deprecated Use {@link Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api}.
+ * Enter description here ...
+ * @author ceefour
+ *
+ */
 class Bippo_MagentoXtender_Model_Product_Attribute_Option_Api extends Mage_Catalog_Model_Api_Resource
 {
 	protected $_setup; //Mage_Eav_Model_Entity_Setup
