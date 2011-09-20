@@ -55,6 +55,16 @@
 			</core_store>
 			<catalog_product>
                 <model>magentoxtender/product_api</model>
+                <methods>
+                	<listPartial translate="title" module="catalog">
+                        <title>Retrieve products list including price</title>
+                        <acl>catalog/product/info</acl>
+                	</listPartial>
+                	<listFull translate="title" module="catalog">
+                        <title>Retrieve products list including all attributes (WARNING: VERY SLOW)</title>
+                        <acl>catalog/product/info</acl>
+                	</listFull>
+                </methods>
             </catalog_product>    
         	<catalog_product_link>
                 <model>magentoxtender/product_link_api</model>
@@ -71,8 +81,6 @@
 					<setSuperAttributeValues translate="title" module="catalog">
 						<title>Set configurable attribute values for super attribute</title>
 					</setSuperAttributeValues>
-					
-					
 				</methods>
             </catalog_product_link>
             <catalog_product_attribute>

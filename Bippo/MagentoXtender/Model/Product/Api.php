@@ -2,7 +2,66 @@
 
 class Bippo_MagentoXtender_Model_Product_Api extends Mage_Catalog_Model_Product_Api
 {
-	public function items($filters = null, $store = null)
+    /**
+     * Retrieve list of products with partial info (id, sku, type, set, name, price, ...)
+     *
+     * @param array $filters
+     * @param string|int $store
+     * @return array
+     */
+    public function listPartial($filters = null, $store = null)
+    {
+        $collection = Mage::getModel('catalog/product')->getCollection()
+            ->setStoreId($this->_getStoreId($store))
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('price')
+        	->addAttributeToSelect('status');
+
+        if (is_array($filters)) {
+            try {
+                foreach ($filters as $field => $value) {
+                    if (isset($this->_filtersMap[$field])) {
+                        $field = $this->_filtersMap[$field];
+                    }
+
+                    $collection->addFieldToFilter($field, $value);
+                }
+            } catch (Mage_Core_Exception $e) {
+                $this->_fault('filters_invalid', $e->getMessage());
+            }
+        }
+
+        $result = array();
+
+        foreach ($collection as $product) {
+            $arrProduct = array( // Basic product data
+                'product_id' => $product->getId(),
+                'sku'        => $product->getSku(),
+                'name'       => $product->getName(),
+                'set'        => $product->getAttributeSetId(),
+                'type'       => $product->getTypeId(),
+                'categories' => $product->getCategoryIds(),
+            	'websites'   => $product->getWebsiteIds(),
+            	
+            	'price'      => $product->getPrice(),
+            	'status'     => $product->getStatus()
+            );
+            
+	        $result[] = $arrProduct;
+        }
+
+        return $result;
+    }
+
+	/**
+     * Retrieve list of products with FULL info (id, sku, type, set, name, price, ...).
+     * VERY SLOW!
+     *
+     * @param array $filters
+     * @param string|int $store
+     * @return array
+     */
+    public function listFull($filters = null, $store = null)
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->setStoreId($this->_getStoreId($store))
