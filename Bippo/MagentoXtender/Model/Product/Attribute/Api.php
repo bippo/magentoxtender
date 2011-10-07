@@ -120,7 +120,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
 	{
 		Mage::log($data);
 		
-		/* @var $newAttribute Mage_Catalog_Model_Entity_Attribute */
+		/* @var $newAttribute Mage_Catalog_Model_Resource_Eav_Attribute */
 //         $newAttribute = Mage::getModel("catalog/entity_attribute");	// Magento 1.5.x.x and older
         $newAttribute = Mage::getModel('catalog/resource_eav_attribute');	// Magento 1.6.0.0
 
