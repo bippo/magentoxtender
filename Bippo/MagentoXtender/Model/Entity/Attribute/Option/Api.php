@@ -142,8 +142,11 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
     </value></param>
     */
     /**
-     * create(125, 0, array( array('store_id'=>0, 'value' => 'Merah') )); 
-     * Enter description here ...
+     * Same for all: create(125, 0, false, array( array('store_id'=>0, 'value' => 'Merah') ));
+     *  
+     * Different for each (better specify ALL stores):
+     * create(125, 0, false, array( array('store_id'=>0, 'value' => 'red'), array('store_id=>4, 'value'=>'Merah'), ... ));
+     * 
      * @param int $attributeID
      * @param int $sortOrder
      * @param bool $checked Is this the default option?
@@ -152,6 +155,9 @@ class Bippo_MagentoXtender_Model_Entity_Attribute_Option_Api extends Mage_Catalo
      */
     public function create($attributeID, $sortOrder, $checked, array $optionValues)
 	{
+		Mage::log(__CLASS__ . '::create '. $attributeID .', '. $sortOrder
+			.', '. $checked .', '. var_export($optionValues, true) );
+		
         // check user input
         // 1. Is $attributeID an integer?
         if(!is_integer($attributeID))

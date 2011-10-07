@@ -34,7 +34,8 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Set_Api extends Mage_Catalog_
         return Mage::getModel('catalog/product')->getResource()->getEntityType()->getId();
     }
     
-    /*
+    /**
+     * Based on basedOnSetID is usually 4 (Default).
 	<param><value><string>cl19t0dqhmheafqc0ccdeejc76</string></value></param>
 	<param><value><string>catalog_product_attribute_set.create</string></value></param>
 	<param>
@@ -61,8 +62,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Set_Api extends Mage_Catalog_
 	*/
 	public function create($basedOnSetID, array $data)
 	{
-		Mage::log(var_export($basedOnSetID, true));
-		Mage::log(var_export($data, true));
+		Mage::log(__CLASS__ . '::create '. $basedOnSetID .', '. var_export($data, true));
 		//try
 		//{
 			// $attrOption = Mage_Eav_Model_Entity_Attribute_Set
