@@ -258,6 +258,14 @@
                     </general_error>
 				</faults>
             </index_indexer>
+        	<sales_order>
+                <model>magentoxtender/order_api</model>
+                <methods>
+                    <infoEx translate="title" module="index">
+						<title>Get info on single order</title>
+					</infoEx>
+				</methods>
+            </sales_order>
         </resources>
     </api>
 </config>
