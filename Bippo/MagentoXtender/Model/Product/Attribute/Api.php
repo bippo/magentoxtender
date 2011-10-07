@@ -55,17 +55,8 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
 
     private function getProductEntityTypeId()
     {
-        return Mage::getModel('catalog/product')->getResource()->getEntityType()->getId();
-		/*static $catalogProductEntityID = 0;
-
-        if($catalogProductEntityID==0)
-        {
-            $entityType = Mage::getModel("eav/entity_type");
-            $entityType->loadByCode("catalog_product");
-            $catalogProductEntityId = $entityType->getEntityTypeId();
-        }
-
-        return $catalogProductEntityId;*/
+    	// app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php line 43
+    	return Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
     }
 
 	/*
@@ -127,7 +118,11 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
     */
     public function create(array $data, array $options = null,$setID = null, $groupID=null)
 	{
-        $newAttribute = Mage::getModel("catalog/entity_attribute");
+		Mage::log($data);
+		
+		/* @var $newAttribute Mage_Catalog_Model_Entity_Attribute */
+//         $newAttribute = Mage::getModel("catalog/entity_attribute");	// Magento 1.5.x.x and older
+        $newAttribute = Mage::getModel('catalog/resource_eav_attribute');	// Magento 1.6.0.0
 
         // 1. Check if attribute code is already used
         $newAttribute->loadByCode($this->getProductEntityTypeId(), $data['attribute_code']);
@@ -137,8 +132,8 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
             $this->_fault("attribute_code_already_exists");
         }
 
-        $newAttribute->setEntityTypeId($this->getProductEntityTypeId());
-
+		$newAttribute->setEntityTypeId($this->getProductEntityTypeId());
+		
         $newAttribute->setAttributeCode($data['attribute_code']);
         $newAttribute->setIsUserDefined(1);
         $newAttribute->setFrontendInput($data['frontend_input']);
@@ -146,7 +141,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
         $newAttribute->setFrondendLabel($data['frontend_label']);
         $defaultValueField = $newAttribute->getDefaultValueByInput($data['frontend_input']);
 
-        if ($defaultValueField) {
+		if ($defaultValueField) {
             $newAttribute->setDefaultValue($data[$defaultValueField]);
         }
 
@@ -163,6 +158,7 @@ class Bippo_MagentoXtender_Model_Product_Attribute_Api extends Mage_Catalog_Mode
 		}
         
         $newAttribute->save();
+		Mage::log('got here');
 
         if($newAttribute->usesSource())
         {
