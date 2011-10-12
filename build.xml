@@ -18,7 +18,7 @@
 			<arg value="-p"/>
 			<arg value="${server.port}"/>
 			<arg value="${server.user}@${server.host}"/>
-			<arg value="rm -rvf ${server.dir}/var/cache/*" />
+			<arg value="rm -rf ${server.dir}/var/cache/*" />
 		</exec>
 	</target>
 
